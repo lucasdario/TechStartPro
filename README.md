@@ -12,6 +12,7 @@ As categorias são cadastradas através da importação de um CSV, onde o usuár
     - A IDE escolhida foi o Visual Studio 2019;
     - É baseado no .NET Framework 4.7.3;
     - Nossa base de dados é MySQL e utilizamos a lib MySQL.Data na versão 8.0.22 _(Está disponível no gerenciador de pacotes NuGet do Visual Studio)_
+    - O SGBD utilizado é o Workbench CE 8.0;
     - Para deixar tudo mais bonitinho, Bootstrap na versão 4.5.3 e Jquery na versão 3.0.0;
 
 - O projeto foi dividio em três camadas, são elas:
