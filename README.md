@@ -1,100 +1,38 @@
-
-# Trabalho no olist
-Olist é uma empresa que oferece uma plataforma de integração para vendedores e marketplaces, permitindo-lhes vender seus produtos em vários canais.
-
-A equipe de desenvolvimento Olist consiste em desenvolvedores que amam o que fazem. Nossos processos de desenvolvimento ágil e nossa busca pelas melhores práticas de desenvolvimento proporcionam um ótimo ambiente para profissionais que gostam de criar softwares de qualidade em boa companhia.
-
-Estamos sempre à procura de bons programadores que adorem melhorar seu trabalho. 
-
-Este repositório contém um problema usado para avaliar as habilidades do candidato. É importante notar que resolver satisfatoriamente o problema é apenas uma parte do que será avaliado. Também consideramos outras disciplinas de programação como documentação, teste, cronograma de commit, design e melhores práticas de codificação.
+<h1 align="center">TSP</h1>
+<h3 align="center">Tech Start Pro - Olist :bookmark_tabs:</h3>
 
 
-# Dicas:
+# O que é este projeto?
+- O TSP tem como objetivo permitir ao usuário o armazenamento e manipulação de cadastros de produtos. 
+Nele é possível armazenar dados como nome, descrição, preço e a categoria a qual o produto pertence, o usuário também pode editar ou deletar os produtos a qualquer momento.
+As categorias são cadastradas através da importação de um CSV, onde o usuário previamente insere todas as categorias desejadas e importa todas elas no sistema de uma forma rápida e simples :wink:
 
-* Leia atentamente a especificação para entender todos os requisitos do problema e do artefato antes de começar, se você não entender algo, diga-nos;
-* Verifique as recomendações e o material de referência no final desta especificação;
-* Apreciamos a simplicidade, portanto, crie uma boa configuração de projeto que nos ajudará na sua avaliação;
-* Por favor, faça testes ... nós apreciamos testes <3 ... testes tornam o mundo melhor.
+# E como este projeto esta sendo desenvolvido?
+- Ele foi construído como uma aplicação Web Asp.Net, abaixo deixo as configurações utilizadas:
+    - A IDE escolhida foi o Visual Studio 2019;
+    - É baseado no .NET Framework 4.7.3;
+    - Nossa base de dados é MySQL e utilizamos a lib MySQL.Data na versão 8.0.22 _(Está disponível no gerenciador de pacotes NuGet do Visual Studio)_
+    - Para deixar tudo mais bonitinho, Bootstrap na versão 4.5.3 e Jquery na versão 3.0.0;
 
-# Como participar
-* Faça um fork deste repositório no Github. Se você não pode criar um fork público deste projeto, faça um repositório privado e adicione permissão de leitura para o usuário abaixo:
-  + mgranemann
-* Siga as instruções do README.md (este arquivo);
-* Candidate-se ao cargo na nossa página de carreiras com o link para o fork no Github.
-  + caso ja tenha realizado a candidatura na pagina de carreiras sem o envio do desafio, responda ao e-mail que lhe foi enviado pela equipe do seleção com o link do seu repositório.
+- O projeto foi dividio em três camadas, são elas:
+    - __Site (vulgo User Interface)__ :arrow_right: Camada de apresentação e interação com o usuário;
+    - __BLL (Business Logic Layer)__ :arrow_right: Camada de negócio onde são realizadas todas as validações e tratamentos de dados de acordo com o escopo do projeto;
+    - __DAL (Data Access Layer)__ :arrow_right: Camada de acesso ao banco de dados onde é invocada as Stored Procedure responsáveis por realizar todas as ações dentro do nosso banco de dados;
 
+Ahhh foi utilizado o Windows 10 😊 </br>
+Nosso status hoje é: __Em desenvolvimento__ :warning:
 
+# Gostei, como eu posso colaborar para o projeto?
+- Bom, após clonar este repositório e montar o seu ambiente de acordo com as especificações citadas acima você pode começar rodando o script __v1_structure.sql__, nele são criadas todas as estruturas da base de dados:
+    - Usuários
+    - Tabelas
+    - Stored Procedures
+- __Este arquivo está disponível na camada DAL em Resources :arrow_right: Data.__
 
-# Especificação
-Você deve implementar um aplicativo para armazenar dados de produtos e categorias.
-
-1. Receba um CSV com as categorias e importe para o banco de dados
-
-  Dado um arquivo CSV com muitas categorias, você precisa construir um comando para importar os dados para o banco de dados. O arquivo CSV terá o seguinte formato:
-
-> nome
-> * Móveis
-> * Decoração
-> * Celular 
-> * Informática
-> * Brinquedos
-
-Cada registro de categoria no banco de dados deve ter os seguintes campos:
-* id (autogerado)
-* nome
-
-Você precisa armazenar os dados das categorias para complementar os dados do produto que serão armazenados posteriormente (consulte o item # 2).
-
-
-2. CRUD (criar, ler, atualizar e excluir) de produtos:
-
-Você precisa implementar estas ações:
-* Criar um produto
-* Ler os dados do produto
-* Atualizar os dados do produto
-* Excluir os dados do produto
-
-Cada registro de produto possui os campos:
-* id (autogerado)
-* nome
-* descrição
-* valor
-* categorias (um produto pode estar em mais de uma categoria)
-
-Para recuperar um produto, podemos filtrar por 4 campos (ou uma composição desses quatro):
-* nome
-* descrição
-* valor
-* categorias
-Deve ser possível navegar pelos dados de todos os produtos sem nenhum filtro.
-
-Para criar um produto, será necessário informar os dados abaixo:
-* "nome": // Nome do produto;
-* “descrição”: // Descrição do produto
-* “valor”:// Valor do produto
-* “categorias”:// Lista de ids de categorias
-
-
-# Requisitos do projeto:
-1. Pode ser feita em qualquer linguagem de programação que suporte o paradigma de orientação a objetos
-2. Utilizar padrões de projeto
-3. Boas práticas de desenvolvimento de software
-4. Utilizar paradigma de orientação a objetos
-5. Utilizar GitHub
-6. Camada visual pode ser console, desktop ou web
-7. Variáveis, código e strings devem estar todos em inglês.
-8. Escreva a documentação do projeto contendo:
-
->  * Descrição;
->  * Instruções de instalação (configuração) e teste;
->  * Breve descrição do ambiente de trabalho utilizado para executar este projeto (Computador / sistema operacional, editor de texto / IDE, bibliotecas, etc).
->  * Variáveis, código e strings devem estar todos em inglês.
-  
-# Recomendações
-  * Escreva testes! Por favor, faça testes ... nós apreciamos testes <3 ... testes tornam o mundo melhor;
-  * Use boas práticas de programação;
-  * Use as melhores práticas do git, com mensagens claras;
-  * Esteja ciente ao modelar o banco de dados;
-
-# Divirta-se!
-
+Lembre-se, caso você altere o nome da base, usuário ou senha do banco de dados, no arquivo __web.config__ é necessário atualizar as informações Database, Id e Password:
+```
+<connectionStrings>
+    <add name="TSP" connectionString="Database=NOMEDABASEDADOS;Data Source=localhost;User Id=USUARIO;Password=SENHA;" providerName="MySqlProviders" />
+  </connectionStrings>
+``` 
+:loudspeaker: Dúvidas ou sugestões é só chamar!!
