@@ -37,7 +37,6 @@ namespace DAL.Persistence.CategoryDAL
                 CloseConnection();
             }
         }
-
         public List<Category> ListAllCategory()
         {
             try

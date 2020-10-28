@@ -4,6 +4,7 @@ using DAL.Persistence.ProductCategoryDAL;
 using DAL.Persistence.ProductDAL;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace BLL.ProductBLL
 {
     public class ProductBLL
     {
-        public string SaveProduct(string name, string description, double price, int category_id)
+        public string SaveProduct(string name, string description, string price, int category_id)
         {
             try
             {
@@ -20,6 +21,10 @@ namespace BLL.ProductBLL
                 ProductDAL productDAL = new ProductDAL();
                 ProductCategoryDAL productCategoryDAL = new ProductCategoryDAL();
 
+                if (string.IsNullOrEmpty(price))
+                {
+                    price = "0";
+                }
                 if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(description) || category_id == 0)
                 {
                     return "Invalid reported values.";
@@ -28,7 +33,7 @@ namespace BLL.ProductBLL
                 {
                     objProduct.prod_name = name;
                     objProduct.prod_description = description;
-                    objProduct.prod_price = price;
+                    objProduct.prod_price = Convert.ToDouble(price, CultureInfo.InvariantCulture);
                     productDAL.SaveProduct(objProduct);
                     if (objProduct.prod_id > 0)
                     {

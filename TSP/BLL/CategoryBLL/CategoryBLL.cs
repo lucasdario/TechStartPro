@@ -45,7 +45,7 @@ namespace BLL.CategoryBLL
             try
             {
                 CategoryDAL categoryDAL = new CategoryDAL();
-                List<DAL.entity.category.Category> lstCategory = categoryDAL.ListAllCategory();
+                List<Category> lstCategory = categoryDAL.ListAllCategory();
                 return lstCategory;
             }
             catch (Exception)
