@@ -49,11 +49,12 @@
                 <div class="col-md-4 mb-3">
                     <label>*Category:</label>
                     <asp:DropDownList CssClass="form-control" ID="ddlCategory" runat="server" AutoPostBack="true"></asp:DropDownList>
+                      <input type="text" id="product_Id" runat="server" class="form-control" maxlength="255" visible="false" />
                 </div>
             </div>
             <div class="form-row" style="padding: 4px">
-                <asp:Button ID="bntRegister" Text="Register" runat="server" CssClass="btn btn-success" OnClick="bntRegister_Click" />
-                <asp:Button ID="btnUpdate" Text="Update" runat="server" CssClass="btn btn-info" Visible="false" />
+                <asp:Button ID="btnRegister" Text="Register" runat="server" CssClass="btn btn-success" OnClick="bntRegister_Click" />
+                <asp:Button ID="btnUpdateProduct" Text="Update" runat="server" CssClass="btn btn-info" Visible="false" OnClick="btnUpdateProduct_Click" />
             </div>
             <div class="form-row" style="padding: 4px">
                 <div class="alert alert-primary" role="alert" runat="server" visible="false" id="divPrimary">
@@ -73,8 +74,8 @@
                     <asp:BoundField DataField="category_id.cate_name" HeaderText="Category" />
                     <asp:TemplateField HeaderText="Actions">
                         <ItemTemplate>
-                            <asp:LinkButton ID="btnUpdate" runat="server" ToolTip="Update" CommandArgument='<%#Eval("prca_id")%>' CssClass="btn btn-primary btn-xs" CommandName="up" Enabled="false">Update</i></asp:LinkButton>
-                            <asp:LinkButton ID="btnDelete" runat="server" ToolTip="Delete" CommandArgument='<%#Eval("prca_id")%>' CssClass="btn btn-danger btn-xs" CommandName="del">Delete</i></asp:LinkButton>
+                            <asp:LinkButton ID="btnUpdateGrid" runat="server" ToolTip="Update" CommandArgument='<%#Eval("prca_id")%>' CssClass="btn btn-primary btn-xs" CommandName="up">Update</i></asp:LinkButton>
+                            <asp:LinkButton ID="btnDeleteGrid" runat="server" ToolTip="Delete" CommandArgument='<%#Eval("prca_id")%>' CssClass="btn btn-danger btn-xs" CommandName="del">Delete</i></asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>

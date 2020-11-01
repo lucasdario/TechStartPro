@@ -87,5 +87,77 @@ namespace DAL.Persistence.ProductCategoryDAL
                 return false;
             }
         }
+        public ProductCategory FindByIdProduct(int productId)
+        {
+            try
+            {
+                OpenConnection();
+                Cmd = new MySqlCommand("SP_FindByProductId", Con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                Cmd.Parameters.AddWithValue("prca_id_", productId);
+
+                Dr = Cmd.ExecuteReader();
+                ProductCategory objProductCategory = new ProductCategory();
+                while (Dr.Read())
+                {
+                    objProductCategory.prca_id = Convert.ToInt32(Dr["prca_id"]);
+                    objProductCategory.product_id.prod_id = Convert.ToInt32(Dr["prod_id"]);
+                    objProductCategory.product_id.prod_name = Convert.ToString(Dr["prod_name"]);
+                    objProductCategory.product_id.prod_description = Convert.ToString(Dr["prod_description"]);
+                    objProductCategory.product_id.prod_price = Convert.ToDouble(Dr["prod_price"]);
+                    objProductCategory.category_id.cate_id = Convert.ToInt32(Dr["cate_id"]);
+                }
+                if (objProductCategory.prca_id != 0)
+                {
+                    return objProductCategory;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        public bool UpdateProduct(ProductCategory objProductCategory)
+        {
+            try
+            {
+                OpenConnection();
+                Cmd = new MySqlCommand("SP_UpdateProduct", Con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                Cmd.Parameters.AddWithValue("prca_id_", objProductCategory.prca_id);
+                Cmd.Parameters.AddWithValue("prod_name_", objProductCategory.product_id.prod_name);
+                Cmd.Parameters.AddWithValue("prod_description_", objProductCategory.product_id.prod_description);
+                Cmd.Parameters.AddWithValue("prod_price_", objProductCategory.product_id.prod_price);
+                Cmd.Parameters.AddWithValue("cate_id_", objProductCategory.category_id.cate_id);
+
+                Cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
     }
 }
+
+
+
+

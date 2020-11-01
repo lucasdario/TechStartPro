@@ -94,21 +94,35 @@ BEGIN
 END$$
 DELIMITER ;
 #############################################################################
+DELIMITER $$
+CREATE PROCEDURE `SP_FindByProductId`
+(
+ IN prca_id_ INT
+)
+BEGIN
+	SELECT pc.prca_id, p.prod_id, p.prod_name, p.prod_description, p.prod_price, c.cate_id FROM productcategory pc 
+		INNER JOIN product p ON pc.prca_product_fk = p.prod_id
+			INNER JOIN category c ON pc.prca_category_fk = c.cate_id
+				WHERE pc.prca_id = prca_id_;
+END$$
+DELIMITER ;
+#############################################################################
+DELIMITER $$
+CREATE PROCEDURE `SP_UpdateProduct`
+(
+ IN prca_id_ INT,
+ IN prod_name_ VARCHAR(255),
+ IN prod_description_ VARCHAR(255),
+ IN prod_price_ DOUBLE(10,5),
+ IN cate_id_ INT
+)
+BEGIN
 
-
-
-
-
-
-
-
-
-
-###APOIO
-SELECT * FROM category;
-SELECT * FROM product;
-SELECT * FROM productcategory;
-
-drop table productcategory;
-drop table product;
-drop table category;
+	SET @prod_id = (SELECT prca_product_fk FROM productcategory WHERE prca_id = prca_id_ );
+	UPDATE productcategory AS pc 
+		INNER JOIN product AS p ON pc.prca_product_fk = @prod_id
+			SET pc.prca_category_fk = cate_id_, p.prod_name = prod_name_, p.prod_price = prod_price_, p.prod_description = prod_description_
+				WHERE pc.prca_id = prca_id_ AND p.prod_id = @prod_id;
+END$$
+DELIMITER ;
+#############################################################################

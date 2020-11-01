@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DAL.entity.productCategory;
+using System.Globalization;
 
 namespace Site
 {
@@ -38,6 +40,22 @@ namespace Site
                 throw;
             }
         }
+        protected void btnUpdateProduct_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                msgPrimary.Text = productCategoryBLL.UpdateProduct(Convert.ToInt32(product_Id.Value), productName.Value, productDescription.Value, productPrice.Value, Convert.ToInt32(ddlCategory.SelectedValue));
+                divPrimary.Visible = true;
+                LoadProducts();
+                CleanScreen();
+                btnRegister.Visible = true;
+                btnUpdateProduct.Visible = false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         protected void grdProducts_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
@@ -45,6 +63,23 @@ namespace Site
                 if (e.CommandName == "up")
                 {
                     string productId = e.CommandArgument.ToString();
+                    ProductCategory objProductCategory = productCategoryBLL.FindByProductId(Convert.ToInt32(productId));
+
+                    if (objProductCategory != null)
+                    {
+                        btnRegister.Visible = false;
+                        btnUpdateProduct.Visible = true;
+                        product_Id.Value = objProductCategory.prca_id.ToString();
+                        productName.Value = objProductCategory.product_id.prod_name.ToString();
+                        productDescription.Value = objProductCategory.product_id.prod_description.ToString();
+                        productPrice.Value = objProductCategory.product_id.prod_price.ToString(CultureInfo.InvariantCulture);
+                        ddlCategory.SelectedValue = objProductCategory.category_id.cate_id.ToString();
+                    }
+                    else
+                    {
+                        divPrimary.Visible = true;
+                        msgPrimary.Text = "Error loading product.";
+                    }
                 }
                 if (e.CommandName == "del")
                 {
@@ -57,6 +92,7 @@ namespace Site
                     }
                     else
                     {
+                        divPrimary.Visible = true;
                         msgPrimary.Text = "Error when deleting the product.";
                     }
                 }
@@ -93,6 +129,7 @@ namespace Site
                 productName.Value = string.Empty;
                 productDescription.Value = string.Empty;
                 productPrice.Value = string.Empty;
+                product_Id.Value = string.Empty;
                 ddlCategory.SelectedValue = "0";
             }
             catch (Exception)
@@ -100,6 +137,5 @@ namespace Site
                 throw;
             }
         }
-
     }
 }
