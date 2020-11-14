@@ -127,7 +127,6 @@ namespace DAL.Persistence.ProductCategoryDAL
                 CloseConnection();
             }
         }
-
         public bool UpdateProduct(ProductCategory objProductCategory)
         {
             try
@@ -149,6 +148,37 @@ namespace DAL.Persistence.ProductCategoryDAL
             catch (Exception)
             {
                 return false;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+        public List<ProductCategory> ListFilterProducts(string comand)
+        {
+            try
+            {
+                OpenConnection();
+                Cmd = new MySqlCommand(comand, Con);
+
+                Dr = Cmd.ExecuteReader();
+                List<ProductCategory> lstProductCategory = new List<ProductCategory>();
+                while (Dr.Read())
+                {
+                    ProductCategory objProductCategory = new ProductCategory();
+                    objProductCategory.prca_id = Convert.ToInt32(Dr["id"]);
+                    objProductCategory.product_id.prod_name = Convert.ToString(Dr["product_name"]);
+                    objProductCategory.product_id.prod_description = Convert.ToString(Dr["product_descripton"]);
+                    objProductCategory.product_id.prod_price = Convert.ToDouble(Dr["product_price"]);
+                    objProductCategory.category_id.cate_name = Convert.ToString(Dr["category_name"]);
+
+                    lstProductCategory.Add(objProductCategory);
+                }
+                return lstProductCategory;
+            }
+            catch (Exception)
+            {
+                throw;
             }
             finally
             {

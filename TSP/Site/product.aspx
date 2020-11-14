@@ -49,7 +49,7 @@
                 <div class="col-md-4 mb-3">
                     <label>*Category:</label>
                     <asp:DropDownList CssClass="form-control" ID="ddlCategory" runat="server" AutoPostBack="true"></asp:DropDownList>
-                      <input type="text" id="product_Id" runat="server" class="form-control" maxlength="255" visible="false" />
+                    <input type="text" id="product_Id" runat="server" class="form-control" maxlength="255" visible="false" />
                 </div>
             </div>
             <div class="form-row" style="padding: 4px">
@@ -59,6 +59,37 @@
             <div class="form-row" style="padding: 4px">
                 <div class="alert alert-primary" role="alert" runat="server" visible="false" id="divPrimary">
                     <asp:Label ID="msgPrimary" runat="server"></asp:Label>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="col-8" style="padding: 10px">
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label>*Name:</label>
+                    <input type="text" id="filterName" runat="server" class="form-control" maxlength="255" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>*Description:</label>
+                    <input type="text" id="filterDescription" runat="server" class="form-control" maxlength="255" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label>Price:</label>
+                    <input type="number" step="0.01" id="filterPrice" runat="server" class="form-control" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>*Category:</label>
+                    <asp:DropDownList CssClass="form-control" ID="ddlFilterCategory" runat="server" AutoPostBack="true"></asp:DropDownList>
+                </div>
+            </div>
+            <div class="form-row" style="padding: 4px">
+                <asp:Button ID="btnSearch" Text="Search" runat="server" CssClass="btn btn-info" OnClick="btnSearch_Click" />
+            </div>
+            <div class="form-row" style="padding: 4px">
+                <div class="alert alert-primary" role="alert" runat="server" visible="false" id="div1">
+                    <asp:Label ID="msgFilter" runat="server"></asp:Label>
                 </div>
             </div>
         </div>

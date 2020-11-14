@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using DAL.entity.productCategory;
 using System.Globalization;
+using DAL.entity.category;
 
 namespace Site
 {
@@ -33,7 +34,7 @@ namespace Site
                 msgPrimary.Text = productBLL.SaveProduct(productName.Value, productDescription.Value, productPrice.Value, Convert.ToInt32(ddlCategory.SelectedValue));
                 divPrimary.Visible = true;
                 LoadProducts();
-                CleanScreen();
+                CleanScreen(1);
             }
             catch (Exception)
             {
@@ -47,9 +48,22 @@ namespace Site
                 msgPrimary.Text = productCategoryBLL.UpdateProduct(Convert.ToInt32(product_Id.Value), productName.Value, productDescription.Value, productPrice.Value, Convert.ToInt32(ddlCategory.SelectedValue));
                 divPrimary.Visible = true;
                 LoadProducts();
-                CleanScreen();
+                CleanScreen(1);
                 btnRegister.Visible = true;
                 btnUpdateProduct.Visible = false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                grdProducts.DataSource = productCategoryBLL.SearchProduct(filterName.Value, filterDescription.Value, filterPrice.Value, Convert.ToInt32(ddlFilterCategory.SelectedValue));
+                grdProducts.DataBind();
+                CleanScreen(2);
             }
             catch (Exception)
             {
@@ -116,21 +130,38 @@ namespace Site
         }
         protected void LoadCategory()
         {
-            ddlCategory.DataSource = categoryBLL.ListAllCategory();
+            List<Category> lstCategory = categoryBLL.ListAllCategory();
+            ddlCategory.DataSource = lstCategory;
             ddlCategory.DataValueField = "cate_id";
             ddlCategory.DataTextField = "cate_name";
             ddlCategory.DataBind();
             ddlCategory.Items.Insert(0, new ListItem("Select a category", "0"));
+
+            ddlFilterCategory.DataSource = lstCategory;
+            ddlFilterCategory.DataValueField = "cate_id";
+            ddlFilterCategory.DataTextField = "cate_name";
+            ddlFilterCategory.DataBind();
+            ddlFilterCategory.Items.Insert(0, new ListItem("Select a category", "0"));
         }
-        protected void CleanScreen()
+        protected void CleanScreen(int option)
         {
             try
             {
-                productName.Value = string.Empty;
-                productDescription.Value = string.Empty;
-                productPrice.Value = string.Empty;
-                product_Id.Value = string.Empty;
-                ddlCategory.SelectedValue = "0";
+                if (option == 1)
+                {
+                    productName.Value = string.Empty;
+                    productDescription.Value = string.Empty;
+                    productPrice.Value = string.Empty;
+                    product_Id.Value = string.Empty;
+                    ddlCategory.SelectedValue = "0";
+                }
+                else if (option == 2)
+                {
+                    filterName.Value = string.Empty;
+                    filterDescription.Value = string.Empty;
+                    filterPrice.Value = string.Empty;
+                    ddlFilterCategory.SelectedValue = "0";
+                }
             }
             catch (Exception)
             {

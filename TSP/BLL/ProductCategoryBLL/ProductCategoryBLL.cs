@@ -99,5 +99,39 @@ namespace BLL.ProductCategoryBLL
                 return "Error processing data.";
             }
         }
+        public List<ProductCategory> SearchProduct(string name, string description, string price, int category_id)
+        {
+            try
+            {
+                string comand = "SELECT pc.prca_id AS id, p.prod_name AS product_name, p.prod_description AS product_descripton, p.prod_price AS product_price, c.cate_name AS category_name FROM productcategory pc"
+                                + " INNER JOIN product p ON pc.prca_product_fk = p.prod_id"
+                                    + " INNER JOIN category c ON pc.prca_category_fk = c.cate_id WHERE 1 = 1";
+                if (!string.IsNullOrEmpty(name))
+                {
+                    comand += " AND p.prod_name LIKE '%" + name + "%'";
+                }
+                if (!string.IsNullOrEmpty(description))
+                {
+                    comand += " AND p.prod_description LIKE '%" + description + "%'";
+                }
+                if (!string.IsNullOrEmpty(price))
+                {
+                    comand += " AND p.prod_price=" + Convert.ToDouble(price);
+                }
+                if (category_id != 0)
+                {
+                    comand += " AND pc.prca_category_fk=" + category_id;
+                }
+
+                ProductCategoryDAL productCategoryDAL = new ProductCategoryDAL();
+                List<ProductCategory> lstProductCategory = productCategoryDAL.ListFilterProducts(comand);
+
+                return lstProductCategory;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }
